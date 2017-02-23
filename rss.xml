@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+    <title>PurdueLUG Wiki</title>
+    <link>//wiki</link>
+    <description>PurdueLUG Wiki</description>
+    
+    <item>
+        <title>Wifi Tutorial</title>
+        <link>/wiki/tutorials/wifi.html</link>
+        <pubDate>Thu, 23 Feb 2017 00:09:01 EST</pubDate>
+        <description>how to connect to pal</description>
+    </item>    
+    
+    <item>
+        <title>Printing Tutorial</title>
+        <link>/wiki/tutorials/printing.html</link>
+        <pubDate>Thu, 23 Feb 2017 00:09:01 EST</pubDate>
+        <description>how to connect to pal</description>
+    </item>    
+    
+    <item>
+        <title>Welcome</title>
+        <link>/wiki/index.html</link>
+        <pubDate>Thu, 23 Feb 2017 00:09:01 EST</pubDate>
+        <description>The default PyKwiki startup page.</description>
+    </item>    
+    
+</channel>
+</rss>
