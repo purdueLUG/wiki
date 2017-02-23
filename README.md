@@ -1,5 +1,16 @@
 # purduelug.org wiki
 
-Use `make html` to build and `make publish` to publish the output directory.
+## Dependencies
+    pip install pelican pykwiki ghp-import
 
+## Building and Publishing
+
+Build wiki articles
+
+    make html
+
+Publish to github pages
+
+    make publish
+    
 Use `git` as usual for managing wiki source content.

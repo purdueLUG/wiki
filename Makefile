@@ -1,6 +1,5 @@
 html:
 	pykwiki cache -f
 
-publish:
-	git add -f docroot
-	git subtree push --prefix docroot origin gh-pages
+publish: html
+	ghp-import -p -b gh-pages docroot
