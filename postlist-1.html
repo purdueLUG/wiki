@@ -143,7 +143,7 @@ $(document).click(function(e) {
 <div class="list-post">
     <h3>
         <a href="/wiki/tutorials/wifi.html">Wifi Tutorial</a> 
-        <span class="post-date">2017-02-23</span>
+        <span class="post-date">2017-03-06</span>
     </h3>
     <div class="clear"></div>
     <div>
@@ -165,8 +165,40 @@ $(document).click(function(e) {
 
         
             <div class="htmltruncate-md">
-                <h1 id="heres-how-to-connect-to-pal">heres how to connect to pal</h1>
-<p>i dont know</p>
+                <h1 id="connect-with-network-manager">Connect with Network Manager</h1>
+<p>Click on the wireless icon in your tray area. Select "Connect to Hidden Wi-Fi Network" or choose PAL3.0 and enter these settings.</p>
+<p><code>Network Name: "PAL2.0" or "PAL3.0"
+   Wireless Security: WPA &amp; WPA2 Enterprise
+   Authentication: Protected EAP (PEAP)
+   Key Type (if present): TKIP
+   Phase2 Type / Inner Authentication: MSCHAPV2
+   Identity / Username: Your Purdue Login
+   Password: Your Purdue Password
+   Anonymous Identity: (leave blank)
+   Client Certificate File (if present): (None)
+   CA Certificate File: /etc/ssl/certs/AddTrust_External_Root.pem or /etc/ssl/certs/AddTrust_External_CA_Root.pem
+   Private Key File: (None)
+   Private Key Password: (leave blank)
+   'PEAP' version: choose 'Version 0'.</code></p>
+<p>Click save.</p>
+<h1 id="connect-with-netctl">Connect with netctl</h1>
+<p>These instructions will allow you to connect to PAL3.0 using netctl, the default network manager in Arch Linux</p>
+<p>Edit the file /etc/netctl/PAL3 to resemble the following (fill in your own information for interface, identity, and password)</p>
+<p><code>Description='PAL3.0-profile'
+    Interface=wlan0
+    Connection=wireless
+    Security=wpa-configsection
+    IP=dhcp
+    WPAConfigSection=(
+     'ssid="PAL3.0"'
+     'proto=RSN WPA'
+     'key_mgmt=WPA-EAP'
+     'auth_alg=OPEN'
+     'eap=PEAP'
+     'identity="username"'
+     'password="password"'
+    )</code></p>
+<p>After doing this, you should be able to connect to PAL by running netctl switch-to PAL3</p>
                 <div class="htmltruncate-bottom"></div>
             </div>
             <a href="/wiki/tutorials/wifi.html" class="btn btn-default">...</a>
@@ -177,34 +209,26 @@ $(document).click(function(e) {
 
 <div class="list-post">
     <h3>
-        <a href="/wiki/tutorials/printing.html">Printing Tutorial</a> 
-        <span class="post-date">2017-02-23</span>
+        <a href="/wiki/index.html">Welcome</a> 
+        <span class="post-date">2017-03-06</span>
     </h3>
     <div class="clear"></div>
     <div>
         <div class="clear"></div> 
         
-            <div class="post-tags">
-            
-                <a class="tag"
-                    href="/search.html?t=printing">printing
-                    <span class="fontawesome-tag"></span></a>
-            
-                <a class="tag"
-                    href="/search.html?t=tutorial">tutorial
-                    <span class="fontawesome-tag"></span></a>
-            
-                <div class="clear"></div>
-            </div>
-        
 
         
             <div class="htmltruncate-md">
-                <h1 id="heres-how-to-print-over-pal">heres how to print over pal</h1>
-<p>i dont know</p>
+                <h1 id="welcome">Welcome!</h1>
+<p>welcome to the plug wiki</p>
+<h1 id="tutorials">Tutorials</h1>
+<p>Here are some tutorials that you might find useful.</p>
+<p><a href="tutorials/wifi.html">How to connect to PAL</a></p>
+<p><a href="tutorials/printing.html">How to print over PAL</a></p>
+<h1 id="linux-101">Linux 101</h1>
                 <div class="htmltruncate-bottom"></div>
             </div>
-            <a href="/wiki/tutorials/printing.html" class="btn btn-default">...</a>
+            <a href="/wiki/index.html" class="btn btn-default">...</a>
         
         
     </div>

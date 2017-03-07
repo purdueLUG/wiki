@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-<meta name="description" content="how to connect to pal">
+<meta name="description" content="How to Connect to PAL3.0">
 <meta name="keywords" content="wifi,tutorial">
 
     <title>Wifi Tutorial | PurdueLUG Wiki</title>
@@ -155,7 +155,7 @@ function hideToc() {
 
 
 <div class="post-author-block">
-  Posted on <strong>2017-02-23 00:43</strong> by <strong>Evidlo</strong>
+  Posted on <strong>2017-03-06 22:01</strong> by <strong>Evidlo</strong>
 </div>
 
 
@@ -170,8 +170,40 @@ function hideToc() {
   <div class="clear"></div>
 </div>
 
-<h1 id="heres-how-to-connect-to-pal">heres how to connect to pal</h1>
-<p>i dont know</p>
+<h1 id="connect-with-network-manager">Connect with Network Manager</h1>
+<p>Click on the wireless icon in your tray area. Select "Connect to Hidden Wi-Fi Network" or choose PAL3.0 and enter these settings.</p>
+<p><code>Network Name: "PAL2.0" or "PAL3.0"
+   Wireless Security: WPA &amp; WPA2 Enterprise
+   Authentication: Protected EAP (PEAP)
+   Key Type (if present): TKIP
+   Phase2 Type / Inner Authentication: MSCHAPV2
+   Identity / Username: Your Purdue Login
+   Password: Your Purdue Password
+   Anonymous Identity: (leave blank)
+   Client Certificate File (if present): (None)
+   CA Certificate File: /etc/ssl/certs/AddTrust_External_Root.pem or /etc/ssl/certs/AddTrust_External_CA_Root.pem
+   Private Key File: (None)
+   Private Key Password: (leave blank)
+   'PEAP' version: choose 'Version 0'.</code></p>
+<p>Click save.</p>
+<h1 id="connect-with-netctl">Connect with netctl</h1>
+<p>These instructions will allow you to connect to PAL3.0 using netctl, the default network manager in Arch Linux</p>
+<p>Edit the file /etc/netctl/PAL3 to resemble the following (fill in your own information for interface, identity, and password)</p>
+<p><code>Description='PAL3.0-profile'
+    Interface=wlan0
+    Connection=wireless
+    Security=wpa-configsection
+    IP=dhcp
+    WPAConfigSection=(
+     'ssid="PAL3.0"'
+     'proto=RSN WPA'
+     'key_mgmt=WPA-EAP'
+     'auth_alg=OPEN'
+     'eap=PEAP'
+     'identity="username"'
+     'password="password"'
+    )</code></p>
+<p>After doing this, you should be able to connect to PAL by running netctl switch-to PAL3</p>
 
 
 </div><!-- end post -->
