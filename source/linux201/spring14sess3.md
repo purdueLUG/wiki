@@ -5,10 +5,10 @@ tags: [linux201, 201, screen]
 ]]
 
 # Description
-The Purdue Linux Users Group Session 3: GNU Screen
+The Purdue Linux Users Group Session 3 - GNU Screen
 
 # Summary
-Here is a summary of what was covered in Linux 201 Session 3:
+Here is a summary of what was covered in Linux 201 Session 3
 
 - What is screen?
 - Screen commands

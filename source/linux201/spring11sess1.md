@@ -1,5 +1,5 @@
 [[
-title: Source Control: Fundamentals and Git
+title: Source Control - Fundamentals and Git
 description: Linux201 Session 1 Spring 2011
 tags: [linux201, 201, git, source, control]
 ]]

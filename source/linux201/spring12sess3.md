@@ -5,10 +5,10 @@ tags: [linux201, 201, apache]
 ]]
 
 # Description
-Linux 201 Session 3: Configuring Apache Monday Feb 27th 2012 7-8pm in LWSN B158
+Linux 201 Session 3 - Configuring Apache Monday Feb 27th 2012 7-8pm in LWSN B158
 
 # Summary
-The following topics were covered:
+The following topics were covered
 
 - Starting and Stopping Apache
 - Basic Configuration Directives

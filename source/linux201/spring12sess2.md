@@ -5,7 +5,7 @@ tags: [linux201, 201, python]
 ]]
 
 # Description
-Linux 201 Session 1: Learn and Discuss Python! Monday Feb 12th 2012 7-8pm in LWSN B158
+Linux 201 Session 1 - Learn and Discuss Python! Monday Feb 12th 2012 7-8pm in LWSN B158
 
 # Summary
 This is our second learning session on Python. Some of the examples require modification depending on what version of python you are using. Our previous session on python can be found in the Linux 201 Previous Sessions section.

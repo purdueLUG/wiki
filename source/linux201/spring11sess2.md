@@ -10,9 +10,9 @@ This is the "lab page" for the information and activities in the second session 
 # Slides
 [Presentation Slides](Linux201_session_2.odp)
 
-You can still get the examples by typing the following into your Linux command line: 
+You can still get the examples by typing the following into your Linux command line
     git clone git://github.com/snowpuppy/linux_201.git 
 
-Note: You must have git installed (apt-get install git-core). 
+Note You must have git installed (apt-get install git-core). 
 
 Feel free to mess around with the code!!

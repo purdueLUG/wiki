@@ -5,12 +5,12 @@ tags: [linux201, 201, VIM, vim]
 ]]
 
 # Description
-Linux 201 Session 1: Everything You Ever Wanted to Do in VIM Monday Jan. 30th 2012 7-8pm in LWSN B158
+Linux 201 Session 1 - Everything You Ever Wanted to Do in VIM Monday Jan. 30th 2012 7-8pm in LWSN B158
 
 # Summary
 This session is and introductory/intermediate discussion of VIM. It tries to cover many of the basic things that new/intermediate people will end up using.
 
-Content: We covered (in general)
+Content we covered (in general)
 
 - Movment Commands
 - Editing Commands
