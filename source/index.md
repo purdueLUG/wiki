@@ -70,6 +70,37 @@ Here are some tutorials that you might find useful.
 - [Linux101 Session 3 apt-get install knowledge: Monday, November 1st]()
 - [Linux101 Session 4 Administration Fundamentals: Monday, November 15th (last session of the semester)]()
 
+# Linux 201
+
+## We no longer differentiate between 201 and 101 but here are some old ones
+
+### Fall 2015
+- [Linux201 Session 1 Fall 2015 Networking](linux201/Session_1_slides_2015.pdf)
+
+### Spring 2014
+- [Linux201 Session 1 Spring 2014 Using Wine](linux201/spring14sess1.html)
+- [Linux201 Session 3 Spring 2014 GNU Screen](linux201/spring14sess3.html)
+- [Linux201 Session 4 Spring 2014 Regular Expressions 2](linux201/spring14sess4.html)
+
+### Spring 2013
+- [Linux201 Session 3 Spring 2013 Learning Python](linux201/spring13sess3.html)
+
+### Fall 2012
+- [Linux201 Session 1 Fall 2012 Building Your Own Linux Lab](linux201/fall12sess1.html)
+- [Linux201 Session 2 Fall 2012 Setting Up Your Own LAN](linux201/Session_2_slides_2012.odp)
+- [Linux201 Session 3 Fall 2012 Useful Tools and Services](linux201/Session_3_slides_2012.odp)
+
+### Spring 2012
+- [Linux201 Session 1 Spring 2012 Everything You Ever Wanted To Do in VIM](linux201/spring12sess1.html)
+- [Linux201 Session 2 Spring 2012 Learn and Discuss Python!](linux201/spring12sess2.html)
+- [Linux201 Session 3 Spring 2012 Configuring Apache](linux201/spring12sess3.html)
+- [Linux201 Session 4 Spring 2012 Using Wine](linux201/spring12sess4.html)
+
+### Spring 2011
+- [Linux201 Session 1 Spring 2011 Source Control: Fundamentals and Git](linux201/spring11sess1.html)
+- [Linux201 Session 2 Spring 2011 Perl: The Gem of Linux](linux201/spring11sess2.html)
+- [Linux201 Session 3 Spring 2011 Python: And Now For Something Completely Different...](linux201/spring11sess3.html)
+
 # Member Meetings
 
 - [Member Meeting #3]() 2016-07-03

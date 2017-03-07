@@ -1,0 +1,81 @@
+LINUX 201 SESSION 3 HANDOUT SPRING 2012
+
+# Apache Manual Controls
+#########################
+
+apachectl -k start
+apachectl -k stop
+apachectl -k restart
+
+# Know These Locations
+######################
+
+# This is where your server looks for server files
+ServerRoot
+# Web pages will be served from this directory
+DocumentRoot
+# Master Apache configuration file
+/etc/apache2/apache2.conf
+
+# URL Specification Directive
+###############################
+
+<Location url/match>
+	# URL Specific Access/Configuration
+</Location>
+
+# File/Directory Specification Directives
+##########################################
+
+# will affect all files with "filename"
+# can be nested in <Directory> directives
+<Files filename>
+	# File Access/Configuration
+</Files>
+
+# will affect all files and directories inside "path" folder
+<Directory path>
+	# Directory Access/Configuration
+</Directory>
+
+# Domain Access Control Directives
+###################################
+
+# Set the order to exec Allow statements and then Deny statements
+Order Allow,Deny
+
+# Deny everyone access then grant access to everyone on the local
+# network
+Deny from All
+Allow from 192.168.1.
+
+# User Web Pages
+##################
+
+# serve user web pages in ~/public_htm folders
+UserDir public_htm
+# allow authorization directives to be used in .htaccess files
+AccessOverride AuthConfig
+
+# User Authentication
+######################
+
+# Use Basic authentication
+AuthType Basic
+# set the "name" of this authentication
+AuthName "Speak Friend"
+# set where passwords can be checked
+AuthUserFile /home/thor/passwds/.htpasswd
+# only sam can login
+Require User sam
+
+# the "-c" creates a new file
+# the command is used to generate a user/password pair for sam
+# in a file named ".htpassword"
+htpasswd -c .htpasswd sam
+
+# Redirection
+###############
+
+# redirect urls with "/plug/" to purduelug.org
+Redirect /plug http://purduelug.org

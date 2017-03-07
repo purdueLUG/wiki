@@ -1,0 +1,330 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define MAX_BUFF_SIZE 10000
+
+
+void select_file(char **file_out, int random);
+void print_file_list(char **file_list, int num_files);
+void free_list(char **list_str, int size, int keep);
+void input_selection(int num_files, int *selection);
+void input_text(char *madfile, char ***user_entries, int *num_user_entries);
+void print_result(char *madfile, char **user_entries, int num_user_entries);
+
+int main(int argc, char **argv)
+{
+  // implement commandline randomness
+  int random = 0, num_user_entries;
+  char *madfile = NULL;
+  char **user_entries = NULL;
+  if (argc == 2 && strcmp(argv[1], "-rand") == 0 )
+  {
+    random = 1;
+	printf("Press Enter.\n");
+  }
+  if (argc == 2 && strcmp(argv[1], "-help") == 0 )
+  {
+	  printf("Command Options: \n\n");
+	  printf("Madlibs.exe -help		display this help message.\n");
+	  printf("Madlibs.exe -rand		select a random file.\n\n");
+	  printf("Pleas note that all \".mad\" files must be in the same\n");
+	  printf("directory as the the executable.\n\n");
+	  exit(0);
+  }
+  // refresh/create a list of files to read
+  // and let the user select one, or select
+  // one at random.
+  select_file(&madfile, random);
+  input_text(madfile, &user_entries, &num_user_entries);
+  print_result(madfile, user_entries, num_user_entries);
+
+  return 0;
+}
+
+void select_file(char **file_out, int random)
+{
+  // file pointers
+  FILE *list_fp = NULL;
+  char **file_list = NULL, **rturn = NULL;
+  char buff[MAX_BUFF_SIZE], *test_EOF = NULL;
+  int i, num_files = 0, next_size = 0;
+
+  // generate a list of files to read
+  system("dir /b | find \".mad\" > madfiles.txt");
+
+  list_fp = fopen("./madfiles.txt", "r");
+  if (list_fp == NULL)
+  {
+    fprintf(stderr, "select_file: Could not open file madfiles\n");
+    exit(1);
+  }
+
+  // extract the list
+  // and keep track of what's there.
+  
+  // get the first line and initialize the loop variable.
+  test_EOF = fgets(buff, MAX_BUFF_SIZE - 1, list_fp );
+  i = 0;
+
+  // loop until we reach the end of the file.
+  while( test_EOF != NULL )
+  {
+    // check the length of the buffer
+    if (strlen(buff) > 0)
+    {
+      // get rid of the '\n' character that we got from fgets
+      buff[ strlen(buff) - 1 ] = '\0';
+    }
+    // don't process empty lines
+    if (buff[0] != '\0' && buff[0] != '\n')
+    {
+      // if this is our first itteration
+      // then allocate memory for file_list using malloc
+      if (i == 0)
+      {
+        file_list = (char **) malloc( sizeof(char*) );
+        if (file_list == NULL)
+        {
+          fprintf(stderr, " %d: Failed to allocate memory using malloc\n", __LINE__);
+          exit(1);
+        }
+        file_list[i] = (char *) malloc( sizeof(char)*(strlen(buff)+1)/* plus one for the null character */ );
+        if (file_list[i] == NULL)
+        {
+          fprintf(stderr, " %d: Failed to allocate memory using malloc\n", __LINE__);
+          exit(1);
+        }
+        strcpy(file_list[i], buff);
+        i++;
+      }
+      else
+      {
+        //printf("i = %d\n", i);
+        next_size = sizeof(char *)*(i+1);
+        //printf("file_list = %ld, size = %d\n", (long)file_list, next_size);
+        rturn = (char **) realloc( file_list, next_size);
+        if ( rturn == NULL )
+        {
+          fprintf(stderr, " %d: Failed to allocate memory using realloc\n", __LINE__);
+          exit(1);
+        }
+        file_list = rturn;
+        file_list[i] = (char *) malloc( sizeof(char)*(strlen(buff)+1)/*plus one for the null character*/ );
+        if (file_list[i] == NULL)
+        {
+          fprintf(stderr, " %d: Failed to allocate memory using malloc\n", __LINE__);
+          exit(1);
+        }
+        strcpy(file_list[i], buff);
+        i++; // increment i
+      }
+    }
+    test_EOF = fgets(buff, MAX_BUFF_SIZE - 1, list_fp );
+  }
+  num_files = i;
+
+  if (random == 1)
+  {
+    srand( time(NULL) );
+    i = rand() % num_files;
+    *file_out = file_list[i];
+    printf("Press Enter.\n");
+  }
+  else
+  {
+    print_file_list(file_list, num_files);
+    input_selection(num_files, &i);
+    *file_out = file_list[i];
+  }
+
+  free_list(file_list, num_files, i);
+  fclose(list_fp);
+  
+}
+
+/*
+ * Print all of the files from the given list
+ * in an ordered list.
+ *
+ */
+
+void print_file_list(char **file_list, int num_files)
+{
+  int i;
+  printf("These Files were found.\n\n");
+  for (i = 0; i < num_files; i++)
+  {
+    printf("%d) %s\n", i, file_list[i]);
+  }
+}
+
+void free_list(char **list_str, int size, int keep)
+{
+  int i = 0;
+  for (i = 0; i < size; i++)
+  {
+    if (i != keep)
+    {
+      free( list_str[i] );
+    }
+  }
+  free(list_str);
+}
+
+void input_selection(int num_files, int *selection)
+{
+  if (num_files == 0)
+  {
+	printf("Could not find any \".mad\" files. Exiting...\n");
+    exit(1);
+  }
+  printf("Which file to load (0 - %d)\n", num_files-1);
+  scanf("%d", selection);
+  while (*selection < 0 || *selection >= num_files)
+  {
+    printf("invalid response. Try again.\n");
+    scanf("%d", selection);
+  }
+}
+
+void input_text(char *madfile, char ***user_entries, int * num_user_entries)
+{
+  FILE *fp = NULL;
+  int i;
+  char buff[MAX_BUFF_SIZE], *test_EOF = NULL;
+
+  fp = fopen(madfile, "r");
+  if (fp == NULL)
+  {
+    fprintf(stderr, "input_text: Could not open file \"%s\"\n", madfile);
+    exit(1);
+  }
+  // clear the standard input
+  test_EOF = fgets(buff, MAX_BUFF_SIZE-1, stdin);
+
+  i = 0;
+  // make sure we're at the beginning
+  // of the list
+  test_EOF = fgets(buff, MAX_BUFF_SIZE-1, fp);
+  // get rid of new lines at the end of the string
+  if (strlen(buff) > 1)
+  {
+    buff[ strlen(buff) - 1 ] = '\0';
+  }
+  while ( test_EOF != NULL && strcmp(buff, ".begin_list") != 0)
+  {
+    test_EOF = fgets(buff, MAX_BUFF_SIZE-1, fp);
+    if (strlen(buff) > 1)
+    {
+      buff[ strlen(buff) - 1 ] = '\0';
+    }
+  }
+
+  test_EOF = fgets(buff, MAX_BUFF_SIZE-1, fp);
+  if (strlen(buff) > 1)
+  {
+    buff[ strlen(buff) - 1 ] = '\0';
+  }
+  while (test_EOF != NULL && strcmp(buff, ".end_list") != 0)
+  {
+    printf("Please Enter a\\n %s\n", buff);
+    test_EOF = fgets(buff, MAX_BUFF_SIZE-1, stdin);
+    // get rid of new line characters at the end.
+    if (strlen(buff) > 1 )
+    {
+      if ( buff[ strlen(buff) - 1 ] == '\n' )
+        buff[ strlen(buff) - 1 ] = '\0';
+    }
+    if (i == 0)
+    {
+      (*user_entries) = (char**)malloc( sizeof(char*) );
+      if ( (*user_entries) == NULL)
+      {
+        fprintf(stderr, " %d: Failed to allocate memory using malloc\n", __LINE__);
+        exit(1);
+      }
+      (*user_entries)[i] = (char*)malloc( sizeof(char)*(strlen(buff)+1) );
+      if ( (*user_entries)[i] == NULL )
+      {
+        fprintf(stderr, " %d: Failed to allocate memory using malloc\n", __LINE__);
+        exit(1);
+      }
+      strcpy((*user_entries)[i], buff);
+      i++;
+    }
+    else
+    {
+      (*user_entries) = (char**)realloc((*user_entries), sizeof(char*)*(++i));
+      if ( (*user_entries) == NULL )
+      {
+        fprintf(stderr, " %d: Failed to allocate memory using realloc\n", __LINE__);
+        exit(1);
+      }
+      (*user_entries)[i-1] = (char*)malloc( sizeof(char)*(strlen(buff)+1) );
+      if ( (*user_entries)[i-1] == NULL )
+      {
+        fprintf(stderr, " %d: Failed to allocate memory using malloc\n", __LINE__);
+        exit(1);
+      }
+      strcpy((*user_entries)[i-1], buff);
+    }
+    test_EOF = fgets(buff, MAX_BUFF_SIZE-1, fp);
+    if (strlen(buff) > 1)
+    {
+      buff[ strlen(buff) - 1 ] = '\0';
+    }
+  }
+  *num_user_entries = i;
+  //printf("num_user_entries: %d\n", num_user_entries);
+  fclose(fp);
+}
+
+void print_result(char *madfile, char **user_entries, int num_user_entries)
+{
+  FILE *fp = NULL;
+  int i;
+  char ch, buff[MAX_BUFF_SIZE] = {'\0'};
+
+  fp = fopen(madfile, "r");
+  if (fp == NULL)
+  {
+    fprintf(stderr, "print_result: Could not open file: \"%s\"\n", madfile);
+    exit(1);
+  }
+
+  // make sure we skip the beginning info.
+  while ( strcmp(buff, ".end_list\n") != 0)
+    fgets(buff, MAX_BUFF_SIZE-1, fp);
+  
+  ch = getc(fp);
+  i = 0;
+  while (ch != EOF)
+  {
+    if (ch != '/' )
+    {
+      printf("%c", ch);
+      ch = getc(fp);
+    }
+    else
+    {
+      ch = getc(fp);
+      if (ch == '#')
+      {
+        if ( i < num_user_entries );
+        {
+          printf("%s", user_entries[i] );
+          ch = getc(fp);
+          i++;
+        }
+      }
+      else
+      {
+        printf("/");
+      }
+    }
+  }
+  fclose(fp);
+  free_list(user_entries, num_user_entries, -1);
+}
