@@ -1,7 +1,7 @@
 [[
 title: Regular Expressions 2
 description: Linux201 Session 4 Spring 2014
-tags: [linux201, 201, regex, regular expressions, regular, expressions]
+tags: [linux201, '201', regex, regular expressions, regular, expressions]
 ]]
 
 # Description

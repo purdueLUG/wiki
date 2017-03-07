@@ -1,7 +1,7 @@
 [[
 title: Using Wine
 description: Linux201 Session 1 Spring 2014
-tags: [linux201, 201, wine]
+tags: [linux201, '201', wine]
 ]]
 
 # Description

@@ -1,7 +1,7 @@
 [[
 title: Learning Python
 description: Linux201 Session 3 Spring 2014
-tags: [linux201, 201, python]
+tags: [linux201, '201', python]
 ]]
 
 # Description

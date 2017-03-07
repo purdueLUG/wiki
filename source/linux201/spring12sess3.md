@@ -1,7 +1,7 @@
 [[
 title: Configuring Apache
 description: Linux201 Session 3 Spring 2012
-tags: [linux201, 201, apache]
+tags: [linux201, '201', apache]
 ]]
 
 # Description

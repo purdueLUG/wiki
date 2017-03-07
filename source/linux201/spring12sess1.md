@@ -1,7 +1,7 @@
 [[
 title: Everything You Ever Wanted To Do in VIM
 description: Linux201 Session 1 Spring 2012
-tags: [linux201, 201, VIM, vim]
+tags: [linux201, '201', VIM, vim]
 ]]
 
 # Description

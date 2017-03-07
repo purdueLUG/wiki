@@ -1,7 +1,7 @@
 [[
 title: Building Your Own Linux Lab
 description: Linux201 Session 1 Fall 2012
-tags: [linux201, 201, lab, linux lab]
+tags: [linux201, '201', lab, linux lab]
 ]]
 
 # Description

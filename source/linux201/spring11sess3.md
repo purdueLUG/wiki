@@ -1,7 +1,7 @@
 [[
 title: Python - And Now For Something Completely Different...
 description: Linux201 Session 3 Spring 2011
-tags: [linux201, 201, python]
+tags: [linux201, '201', python]
 ]]
 
 # Summary

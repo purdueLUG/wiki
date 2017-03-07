@@ -1,7 +1,7 @@
 [[
 title: Learn and Discuss Python!
 description: Linux201 Session 2 Spring 2012
-tags: [linux201, 201, python]
+tags: [linux201, '201', python]
 ]]
 
 # Description

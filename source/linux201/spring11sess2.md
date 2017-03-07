@@ -1,7 +1,7 @@
 [[
 title: Perl The Gem of Linux
 description: Linux201 Session 2 Spring 2011
-tags: [linux201, 201, perl]
+tags: [linux201, '201', perl]
 ]]
 
 # Summary
