@@ -155,7 +155,7 @@ $(document).click(function(e) {
 <div class="list-post">
     <h3>
         <a href="/wiki/diode.html">Diode Documentation</a> 
-        <span class="post-date">2017-08-31</span>
+        <span class="post-date">2017-09-01</span>
     </h3>
     <div class="clear"></div>
     <div>
@@ -166,23 +166,36 @@ $(document).click(function(e) {
             <div class="htmltruncate-md">
                 <h1 id="lxc">LXC</h1>
 <h2 id="command-examples">Command Examples</h2>
-<p>Create new container
-    sudo lxc-create -n plug -t fedora -B btrfs
-    sudo vi /etc/lxc/dnsmasq.conf # see config examples</p>
-<p>List existing containers
-    sudo lxc-ls -f</p>
-<p>Attach existing container
-    sudo lxc-attach -n plug</p>
+<p>Create new container</p>
+<div class="codehilite"><pre><span></span>sudo lxc-create -n plug -t fedora -B btrfs
+sudo vi /etc/lxc/dnsmasq.conf # see config examples
+</pre></div>
+
+
+<p>List existing containers</p>
+<div class="codehilite"><pre><span></span>sudo lxc-ls -f
+</pre></div>
+
+
+<p>Attach existing container</p>
+<div class="codehilite"><pre><span></span>sudo lxc-attach -n plug
+</pre></div>
+
+
 <h2 id="config-examples">Config Examples</h2>
-<p><strong>/etc/lxc/lxc.conf</strong> - set path for containers to be stored (default /var/lib/lxc)
-    lxc.lxcpath = "/lxc"</p>
-<p><strong>/etc/lxc/default.conf</strong> - config options for all newly created containers to inherit
-    lxc.network.type = veth
-    lxc.network.link = lxcbr0
-    lxc.network.flags = up
-    lxc.network.hwaddr = 00:16:3e:xx:xx:xx
-    lxc.start.auto = 1</p>
-<div class="codehilite"><pre><span></span># address
+<p><strong>/etc/lxc/lxc.conf</strong> - set path for containers to be stored (default /var/lib/lxc)</p>
+<div class="codehilite"><pre><span></span>lxc.lxcpath = &quot;/lxc&quot;
+</pre></div>
+
+
+<p><strong>/etc/lxc/default.conf</strong> - config options for all newly created containers to inherit</p>
+<div class="codehilite"><pre><span></span>lxc.network.type = veth
+lxc.network.link = lxcbr0
+lxc.network.flags = up
+lxc.network.hwaddr = 00:16:3e:xx:xx:xx
+lxc.start.auto = 1
+
+# address
 #lxc.network.ipv4 = 192.168.1.1xx
 lxc.network.ipv4.gateway = 192.168.1.1
 
@@ -194,70 +207,128 @@ lxc.cgroup.memory.memsw.limit_in_bytes = 1G
 </pre></div>
 
 
-<p><strong>/etc/default/lxc-net</strong> - it may be necessary to add /etc/lxc/dnsasq.conf to the apparmor profile (/etc/apparmor.d/<em>dnsmasq</em>) with read privileges
-    USE_LXC_BRIDGE="true"
-    LXC_BRIDGE="lxcbr0"
-    LXC_ADDR="192.168.1.1"
-    LXC_NETMASK="255.255.255.0"
-    LXC_NETWORK="192.168.1.0/24"
-    LXC_DHCP_RANGE="192.168.1.100,192.168.1.199"
-    LXC_DHCP_MAX="100"
-    LXC_DHCP_CONFILE="/etc/lxc/dnsmasq.conf"
-    LXC_DOMAIN=""</p>
-<p><strong>/etc/lxc/dnsmasq.conf</strong>
-    dhcp-host=evan,192.168.1.102</p>
-<p><strong>iptables config</strong>
-    #!/bin/bash
-    ## Evan Widloski - 2016-11-11
-    # Diode iptables rules</p>
-<div class="codehilite"><pre><span></span># filter table: flush all chains, and delete all user added chains
+<p><strong>/etc/default/lxc-net</strong> - it may be necessary to add /etc/lxc/dnsasq.conf to the apparmor profile (/etc/apparmor.d/<em>dnsmasq</em>) with read privileges</p>
+<div class="codehilite"><pre><span></span>USE_LXC_BRIDGE=&quot;true&quot;
+LXC_BRIDGE=&quot;lxcbr0&quot;
+LXC_ADDR=&quot;192.168.1.1&quot;
+LXC_NETMASK=&quot;255.255.255.0&quot;
+LXC_NETWORK=&quot;192.168.1.0/24&quot;
+LXC_DHCP_RANGE=&quot;192.168.1.100,192.168.1.199&quot;
+LXC_DHCP_MAX=&quot;100&quot;
+LXC_DHCP_CONFILE=&quot;/etc/lxc/dnsmasq.conf&quot;
+LXC_DOMAIN=&quot;&quot;
+</pre></div>
+
+
+<p><strong>/etc/lxc/dnsmasq.conf</strong></p>
+<div class="codehilite"><pre><span></span>dhcp-host=evan,192.168.1.102
+</pre></div>
+
+
+<p><strong>iptables config</strong></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">## Evan Widloski - 2016-11-11</span>
+<span class="c1"># Diode iptables rules</span>
+
+<span class="c1"># filter table: flush all chains, and delete all user added chains</span>
 iptables -F
 iptables -X
-# nat table: flush all chains, and delete all user added chains
+<span class="c1"># nat table: flush all chains, and delete all user added chains</span>
 iptables -t nat -F
 iptables -t nat -X
 
-# set default policies to DROP packets
+<span class="c1"># set default policies to DROP packets</span>
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
 
-# allow inbound outbound traffic on host 
-iptables -A OUTPUT -o enp6s0f0 -d 0.0.0.0/0 -j ACCEPT 
+<span class="c1"># allow inbound outbound traffic on host </span>
+iptables -A OUTPUT -o enp6s0f0 -d <span class="m">0</span>.0.0.0/0 -j ACCEPT 
 iptables -A INPUT -i enp6s0f0 -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-# set up chain for sshguard
+<span class="c1"># set up chain for sshguard</span>
 iptables -N sshguard
-iptables -A INPUT -p tcp --dport 22 -j sshguard
+iptables -A INPUT -p tcp --dport <span class="m">22</span> -j sshguard
 
-# allow ssh
-iptables -A INPUT -i enp6s0f0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -o enp6s0f0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+<span class="c1"># allow ssh</span>
+iptables -A INPUT -i enp6s0f0 -p tcp --dport <span class="m">22</span> -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o enp6s0f0 -p tcp --sport <span class="m">22</span> -m state --state ESTABLISHED -j ACCEPT
 
-# allow mosh
-iptables -A INPUT -i enp6s0f0 -p udp --dport 60000:61000 -j ACCEPT
-iptables -A OUTPUT -o enp6s0f0 -p udp --sport 60000:61000 -j ACCEPT
+<span class="c1"># allow mosh</span>
+iptables -A INPUT -i enp6s0f0 -p udp --dport <span class="m">60000</span>:61000 -j ACCEPT
+iptables -A OUTPUT -o enp6s0f0 -p udp --sport <span class="m">60000</span>:61000 -j ACCEPT
 
-# allow connections to varnish service
-#iptables -A INPUT -i enp6s0f0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
-#iptables -A OUTPUT -o enp6s0f0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+<span class="c1"># allow connections to varnish service</span>
+<span class="c1">#iptables -A INPUT -i enp6s0f0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT</span>
+<span class="c1">#iptables -A OUTPUT -o enp6s0f0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT</span>
 
-# allow host to access LXC targets via network
+<span class="c1"># allow host to access LXC targets via network</span>
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -A OUTPUT -s 192.168.1.0/24 -j ACCEPT
+iptables -A OUTPUT -s <span class="m">192</span>.168.1.0/24 -j ACCEPT
 
-# allow outbound traffic for lxc containers
+<span class="c1"># allow outbound traffic for lxc containers</span>
 iptables -A FORWARD -i lxcbr0 -j ACCEPT
-iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s <span class="m">192</span>.168.1.0/24 -j MASQUERADE
 
-# after incoming packets have been NAT&#39;ed (see below), allow them to pass through
-# the forward chain to their intended LXC target
+<span class="c1"># after incoming packets have been NAT&#39;ed (see below), allow them to pass through</span>
+<span class="c1"># the forward chain to their intended LXC target</span>
 iptables -A FORWARD -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
-##------------ evan --------------
-## ssh
-iptables -t nat -A PREROUTING -p tcp --dport 20022 -j DNAT --to-destination 192.168.1.102:22
+<span class="c1">##------------ evan --------------</span>
+<span class="c1">## ssh</span>
+iptables -t nat -A PREROUTING -p tcp --dport <span class="m">20022</span> -j DNAT --to-destination <span class="m">192</span>.168.1.102:22
 </pre></div>
+</td></tr></table>
                 <div class="htmltruncate-bottom"></div>
             </div>
             <a href="/wiki/diode.html" class="btn btn-default">...</a>
@@ -269,7 +340,7 @@ iptables -t nat -A PREROUTING -p tcp --dport 20022 -j DNAT --to-destination 192.
 <div class="list-post">
     <h3>
         <a href="/wiki/index.html">Welcome</a> 
-        <span class="post-date">2017-08-31</span>
+        <span class="post-date">2017-09-01</span>
     </h3>
     <div class="clear"></div>
     <div>
@@ -290,7 +361,7 @@ iptables -t nat -A PREROUTING -p tcp --dport 20022 -j DNAT --to-destination 192.
 <p><a href="">How to access BoilerCast on Linux</a></p>
 <h1 id="plug-documentation">PLUG Documentation</h1>
 <ul>
-<li><a href="diode.md">Diode documentation</a></li>
+<li><a href="diode.html">Diode documentation</a></li>
 </ul>
 <h1 id="linux-101">Linux 101</h1>
 <h2 id="fall-2016">Fall 2016</h2>
