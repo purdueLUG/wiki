@@ -128,6 +128,18 @@ $(document).click(function(e) {
         <a href="/wiki/postlist-2.html">2</a>
     </li>
   
+    <li >
+        <a href="/wiki/postlist-3.html">3</a>
+    </li>
+  
+    <li >
+        <a href="/wiki/postlist-4.html">4</a>
+    </li>
+  
+    <li >
+        <a href="/wiki/postlist-5.html">5</a>
+    </li>
+  
   
   <li><a href="/wiki/postlist-2.html">&raquo;</a></li>
   
@@ -142,8 +154,122 @@ $(document).click(function(e) {
 
 <div class="list-post">
     <h3>
+        <a href="/wiki/diode.html">Diode Documentation</a> 
+        <span class="post-date">2017-08-31</span>
+    </h3>
+    <div class="clear"></div>
+    <div>
+        <div class="clear"></div> 
+        
+
+        
+            <div class="htmltruncate-md">
+                <h1 id="lxc">LXC</h1>
+<h2 id="command-examples">Command Examples</h2>
+<p>Create new container
+    sudo lxc-create -n plug -t fedora -B btrfs
+    sudo vi /etc/lxc/dnsmasq.conf # see config examples</p>
+<p>List existing containers
+    sudo lxc-ls -f</p>
+<p>Attach existing container
+    sudo lxc-attach -n plug</p>
+<h2 id="config-examples">Config Examples</h2>
+<p><strong>/etc/lxc/lxc.conf</strong> - set path for containers to be stored (default /var/lib/lxc)
+    lxc.lxcpath = "/lxc"</p>
+<p><strong>/etc/lxc/default.conf</strong> - config options for all newly created containers to inherit
+    lxc.network.type = veth
+    lxc.network.link = lxcbr0
+    lxc.network.flags = up
+    lxc.network.hwaddr = 00:16:3e:xx:xx:xx
+    lxc.start.auto = 1</p>
+<div class="codehilite"><pre><span></span># address
+#lxc.network.ipv4 = 192.168.1.1xx
+lxc.network.ipv4.gateway = 192.168.1.1
+
+# memory
+lxc.cgroup.memory.limit_in_bytes = 512M
+
+# memory + swap
+lxc.cgroup.memory.memsw.limit_in_bytes = 1G
+</pre></div>
+
+
+<p><strong>/etc/default/lxc-net</strong> - it may be necessary to add /etc/lxc/dnsasq.conf to the apparmor profile (/etc/apparmor.d/<em>dnsmasq</em>) with read privileges
+    USE_LXC_BRIDGE="true"
+    LXC_BRIDGE="lxcbr0"
+    LXC_ADDR="192.168.1.1"
+    LXC_NETMASK="255.255.255.0"
+    LXC_NETWORK="192.168.1.0/24"
+    LXC_DHCP_RANGE="192.168.1.100,192.168.1.199"
+    LXC_DHCP_MAX="100"
+    LXC_DHCP_CONFILE="/etc/lxc/dnsmasq.conf"
+    LXC_DOMAIN=""</p>
+<p><strong>/etc/lxc/dnsmasq.conf</strong>
+    dhcp-host=evan,192.168.1.102</p>
+<p><strong>iptables config</strong>
+    #!/bin/bash
+    ## Evan Widloski - 2016-11-11
+    # Diode iptables rules</p>
+<div class="codehilite"><pre><span></span># filter table: flush all chains, and delete all user added chains
+iptables -F
+iptables -X
+# nat table: flush all chains, and delete all user added chains
+iptables -t nat -F
+iptables -t nat -X
+
+# set default policies to DROP packets
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+
+# allow inbound outbound traffic on host 
+iptables -A OUTPUT -o enp6s0f0 -d 0.0.0.0/0 -j ACCEPT 
+iptables -A INPUT -i enp6s0f0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# set up chain for sshguard
+iptables -N sshguard
+iptables -A INPUT -p tcp --dport 22 -j sshguard
+
+# allow ssh
+iptables -A INPUT -i enp6s0f0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o enp6s0f0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+# allow mosh
+iptables -A INPUT -i enp6s0f0 -p udp --dport 60000:61000 -j ACCEPT
+iptables -A OUTPUT -o enp6s0f0 -p udp --sport 60000:61000 -j ACCEPT
+
+# allow connections to varnish service
+#iptables -A INPUT -i enp6s0f0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -o enp6s0f0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+
+# allow host to access LXC targets via network
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -s 192.168.1.0/24 -j ACCEPT
+
+# allow outbound traffic for lxc containers
+iptables -A FORWARD -i lxcbr0 -j ACCEPT
+iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -j MASQUERADE
+
+# after incoming packets have been NAT&#39;ed (see below), allow them to pass through
+# the forward chain to their intended LXC target
+iptables -A FORWARD -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+##------------ evan --------------
+## ssh
+iptables -t nat -A PREROUTING -p tcp --dport 20022 -j DNAT --to-destination 192.168.1.102:22
+</pre></div>
+                <div class="htmltruncate-bottom"></div>
+            </div>
+            <a href="/wiki/diode.html" class="btn btn-default">...</a>
+        
+        
+    </div>
+</div>
+
+<div class="list-post">
+    <h3>
         <a href="/wiki/index.html">Welcome</a> 
-        <span class="post-date">2017-03-06</span>
+        <span class="post-date">2017-08-31</span>
     </h3>
     <div class="clear"></div>
     <div>
@@ -154,8 +280,6 @@ $(document).click(function(e) {
             <div class="htmltruncate-md">
                 <h1 id="welcome">Welcome!</h1>
 <p>Welcome to the Purdue Linux Users Group Wiki!</p>
-<p>We are currently in the process of migrating everything over to here. </p>
-<p>If you need something in the meantime, you can go to <a href="http://diode.purduelug.org/wiki/">our old wiki!</a></p>
 <h1 id="tutorials">Tutorials</h1>
 <p>Here are some tutorials that you might find useful.</p>
 <p><a href="tutorials/wifi.html">How to connect to PAL</a></p>
@@ -164,18 +288,24 @@ $(document).click(function(e) {
 <p><a href="http://support.cs.purdue.edu/help/Printing_from_Linux">How to print to CS Printers</a></p>
 <p><a href="tutorials/vpn.html">How to connect to the VPN</a></p>
 <p><a href="">How to access BoilerCast on Linux</a></p>
+<h1 id="plug-documentation">PLUG Documentation</h1>
+<ul>
+<li><a href="diode.md">Diode documentation</a></li>
+</ul>
 <h1 id="linux-101">Linux 101</h1>
-<h2 id="current-sessions">Current Sessions</h2>
-<h3 id="fall-2016">Fall 2016</h3>
+<h2 id="fall-2016">Fall 2016</h2>
 <ul>
 <li><a href="">Linux 101 Fall 2016 - Linux Essentials The basics of Linux</a></li>
 </ul>
-<h3 id="spring-2016">Spring 2016</h3>
+<h2 id="spring-2016">Spring 2016</h2>
 <ul>
 <li><a href="">Linux 101 - Linux Essentials The basics of Linux</a></li>
 </ul>
-<h2 id="past-sessions">Past Sessions</h2>
-<h3 id="fall-2014">Fall 2014</h3>
+<h2 id="fall-2015">Fall 2015</h2>
+<ul>
+<li><a href="linux201/Session_1_slides_2015.pdf">Linux201 Session 1 Fall 2015 Networking</a></li>
+</ul>
+<h2 id="fall-2014">Fall 2014</h2>
 <ul>
 <li><a href="">Linux101 Session 1 Fall 2014 Introduction to Linux</a></li>
 <li><a href="">Linux101 Session 2 Fall 2014 Package Managers</a></li>
@@ -184,17 +314,37 @@ $(document).click(function(e) {
 <li><a href="">Linux101 Session 5 Fall 2014 IP Tables</a></li>
 <li><a href="">Linux101 Session 6 Fall 2014 Permissions</a></li>
 </ul>
-<h3 id="fall-2013">Fall 2013</h3>
+<h2 id="spring-2014">Spring 2014</h2>
+<ul>
+<li><a href="linux201/spring14sess1.html">Linux201 Session 1 Spring 2014 Using Wine</a></li>
+<li><a href="linux201/spring14sess3.html">Linux201 Session 3 Spring 2014 GNU Screen</a></li>
+<li><a href="linux201/spring14sess4.html">Linux201 Session 4 Spring 2014 Regular Expressions 2</a></li>
+</ul>
+<h2 id="fall-2013">Fall 2013</h2>
 <ul>
 <li><a href="">Linux101 Session 4 Fall 2013 Advanced Editors</a></li>
 </ul>
-<h3 id="fall-2012">Fall 2012</h3>
+<h2 id="spring-2013">Spring 2013</h2>
+<ul>
+<li><a href="linux201/spring13sess3.html">Linux201 Session 3 Spring 2013 Learning Python</a></li>
+</ul>
+<h2 id="fall-2012">Fall 2012</h2>
 <ul>
 <li><a href="">Linux101 Session 1 Fall 2012 Introduction to Linux</a></li>
 <li><a href="">Linux101 Session 2 Fall 2012 Package Managers and File Systems</a></li>
 <li><a href="">Linux101 Session 3 Fall 2012 Introduction to Bash</a></li>
+<li><a href="linux201/fall12sess1.html">Linux201 Session 1 Fall 2012 Building Your Own Linux Lab</a></li>
+<li><a href="linux201/Session_2_slides_2012.odp">Linux201 Session 2 Fall 2012 Setting Up Your Own LAN</a></li>
+<li><a href="linux201/Session_3_slides_2012.odp">Linux201 Session 3 Fall 2012 Useful Tools and Services</a></li>
 </ul>
-<h3 id="fall-2011">Fall 2011</h3>
+<h2 id="spring-2012">Spring 2012</h2>
+<ul>
+<li><a href="linux201/spring12sess1.html">Linux201 Session 1 Spring 2012 Everything You Ever Wanted To Do in VIM</a></li>
+<li><a href="linux201/spring12sess2.html">Linux201 Session 2 Spring 2012 Learn and Discuss Python!</a></li>
+<li><a href="linux201/spring12sess3.html">Linux201 Session 3 Spring 2012 Configuring Apache</a></li>
+<li><a href="linux201/spring12sess4.html">Linux201 Session 4 Spring 2012 Using Wine</a></li>
+</ul>
+<h2 id="fall-2011">Fall 2011</h2>
 <ul>
 <li><a href="">Linux101 Session 1 Fall 2011 Introduction to Linux</a></li>
 <li><a href="">Linux101 Session 2 Fall 2011 Package Managers and File Systems</a></li>
@@ -203,7 +353,13 @@ $(document).click(function(e) {
 <li><a href="">Linux101 Session 5 Fall 2011 Mail Clients Using Mutt</a></li>
 <li><a href="">Linux101 Session 6 Fall 2011 Linux Networking</a></li>
 </ul>
-<h3 id="fall-2010">Fall 2010</h3>
+<h2 id="spring-2011">Spring 2011</h2>
+<ul>
+<li><a href="linux201/spring11sess1.html">Linux201 Session 1 Spring 2011 Source Control: Fundamentals and Git</a></li>
+<li><a href="linux201/spring11sess2.html">Linux201 Session 2 Spring 2011 Perl: The Gem of Linux</a></li>
+<li><a href="linux201/spring11sess3.html">Linux201 Session 3 Spring 2011 Python: And Now For Something Completely Different...</a></li>
+</ul>
+<h2 id="fall-2010">Fall 2010</h2>
 <ul>
 <li><a href="">Linux101 Session 1 Introduction to Linux</a></li>
 <li><a href="">Linux101 Session 2 Tweaks &amp; Text: Monday, October 18th</a></li>
@@ -247,67 +403,6 @@ $(document).click(function(e) {
     </div>
 </div>
 
-<div class="list-post">
-    <h3>
-        <a href="/wiki/tutorials/vpn.html">VPN Tutorial</a> 
-        <span class="post-date">2017-03-06</span>
-    </h3>
-    <div class="clear"></div>
-    <div>
-        <div class="clear"></div> 
-        
-            <div class="post-tags">
-            
-                <a class="tag"
-                    href="/search.html?t=vpn">vpn
-                    <span class="fontawesome-tag"></span></a>
-            
-                <a class="tag"
-                    href="/search.html?t=tutorial">tutorial
-                    <span class="fontawesome-tag"></span></a>
-            
-                <div class="clear"></div>
-            </div>
-        
-
-        
-            <div class="htmltruncate-md">
-                <h1 id="install-openconnect">Install Openconnect</h1>
-<p>Network Manager needs the Openconnect plugin first.</p>
-<p>Ubuntu/Debian</p>
-<div class="codehilite"><pre><span></span>sudo apt-get install network-manager-openconnect network-manager-openconnect-gnome
-</pre></div>
-
-
-<p>RHEL/Fedora</p>
-<div class="codehilite"><pre><span></span>sudo yum install NetworkManager-openconnect
-</pre></div>
-
-
-<h1 id="configure">Configure</h1>
-<p>In Network Manager, go to</p>
-<div class="codehilite"><pre><span></span>VPN Connections &gt; Configure VPN &gt; Add
-</pre></div>
-
-
-<p>Then choose</p>
-<p>Cisco Anyconnect Compatible VPN</p>
-<p>Enter the following settings:</p>
-<p><img alt="VPN" src="Purduevpn.png" /></p>
-<p>Click save, and then activate the VPN in Network Manager.</p>
-<div class="codehilite"><pre><span></span><span class="n">VPN</span> <span class="n">Connections</span> <span class="o">&gt;</span> <span class="p">[</span><span class="n">your</span> <span class="n">vpn</span><span class="p">]</span>
-</pre></div>
-
-
-<p>You will be prompted for a username and password on connecting.</p>
-                <div class="htmltruncate-bottom"></div>
-            </div>
-            <a href="/wiki/tutorials/vpn.html" class="btn btn-default">...</a>
-        
-        
-    </div>
-</div>
-
 </div>
 
 <div class="pager">
@@ -320,6 +415,18 @@ $(document).click(function(e) {
   
     <li >
         <a href="/wiki/postlist-2.html">2</a>
+    </li>
+  
+    <li >
+        <a href="/wiki/postlist-3.html">3</a>
+    </li>
+  
+    <li >
+        <a href="/wiki/postlist-4.html">4</a>
+    </li>
+  
+    <li >
+        <a href="/wiki/postlist-5.html">5</a>
     </li>
   
   

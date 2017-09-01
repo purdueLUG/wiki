@@ -6,23 +6,114 @@
     <description>PurdueLUG Wiki</description>
     
     <item>
+        <title>Diode Documentation</title>
+        <link>/wiki/diode.html</link>
+        <pubDate>Thu, 31 Aug 2017 01:27:47 EDT</pubDate>
+        <description>Documentation for configuration on Diode</description>
+    </item>    
+    
+    <item>
         <title>Welcome</title>
         <link>/wiki/index.html</link>
-        <pubDate>Mon, 06 Mar 2017 22:49:44 EST</pubDate>
+        <pubDate>Thu, 31 Aug 2017 01:14:56 EDT</pubDate>
         <description>The default PyKwiki startup page.</description>
+    </item>    
+    
+    <item>
+        <title>Python - And Now For Something Completely Different...</title>
+        <link>/wiki/linux201/spring11sess3.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 3 Spring 2011</description>
+    </item>    
+    
+    <item>
+        <title>Learning Python</title>
+        <link>/wiki/linux201/spring13sess3.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 3 Spring 2014</description>
+    </item>    
+    
+    <item>
+        <title>Perl The Gem of Linux</title>
+        <link>/wiki/linux201/spring11sess2.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 2 Spring 2011</description>
+    </item>    
+    
+    <item>
+        <title>Regular Expressions 2</title>
+        <link>/wiki/linux201/spring14sess4.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 4 Spring 2014</description>
+    </item>    
+    
+    <item>
+        <title>Using Wine</title>
+        <link>/wiki/linux201/spring12sess4.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 4 Spring 2012</description>
+    </item>    
+    
+    <item>
+        <title>GNU Screen</title>
+        <link>/wiki/linux201/spring14sess3.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 3 Spring 2014</description>
+    </item>    
+    
+    <item>
+        <title>Configuring Apache</title>
+        <link>/wiki/linux201/spring12sess3.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 3 Spring 2012</description>
+    </item>    
+    
+    <item>
+        <title>Using Wine</title>
+        <link>/wiki/linux201/spring14sess1.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 1 Spring 2014</description>
+    </item>    
+    
+    <item>
+        <title>Learn and Discuss Python!</title>
+        <link>/wiki/linux201/spring12sess2.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 2 Spring 2012</description>
+    </item>    
+    
+    <item>
+        <title>Everything You Ever Wanted To Do in VIM</title>
+        <link>/wiki/linux201/spring12sess1.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 1 Spring 2012</description>
+    </item>    
+    
+    <item>
+        <title>Source Control - Fundamentals and Git</title>
+        <link>/wiki/linux201/spring11sess1.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 1 Spring 2011</description>
+    </item>    
+    
+    <item>
+        <title>Building Your Own Linux Lab</title>
+        <link>/wiki/linux201/fall12sess1.html</link>
+        <pubDate>Sun, 23 Jul 2017 21:25:48 EDT</pubDate>
+        <description>Linux201 Session 1 Fall 2012</description>
     </item>    
     
     <item>
         <title>VPN Tutorial</title>
         <link>/wiki/tutorials/vpn.html</link>
-        <pubDate>Mon, 06 Mar 2017 22:29:52 EST</pubDate>
+        <pubDate>Mon, 06 Mar 2017 23:52:31 EST</pubDate>
         <description>How to connect to the Purdue VPN</description>
     </item>    
     
     <item>
         <title>Wifi Tutorial</title>
         <link>/wiki/tutorials/wifi.html</link>
-        <pubDate>Mon, 06 Mar 2017 22:21:15 EST</pubDate>
+        <pubDate>Mon, 06 Mar 2017 23:52:31 EST</pubDate>
         <description>How to Connect to PAL3.0</description>
     </item>    
     
