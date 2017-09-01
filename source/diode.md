@@ -7,20 +7,25 @@ description: Documentation for configuration on Diode
 # LXC
 ## Command Examples
 Create new container
+
     sudo lxc-create -n plug -t fedora -B btrfs
     sudo vi /etc/lxc/dnsmasq.conf # see config examples
     
 List existing containers
+
     sudo lxc-ls -f
     
 Attach existing container
+
     sudo lxc-attach -n plug
     
 ## Config Examples
 **/etc/lxc/lxc.conf** - set path for containers to be stored (default /var/lib/lxc)
+
     lxc.lxcpath = "/lxc"
 
 **/etc/lxc/default.conf** - config options for all newly created containers to inherit
+
     lxc.network.type = veth
     lxc.network.link = lxcbr0
     lxc.network.flags = up
@@ -38,6 +43,7 @@ Attach existing container
     lxc.cgroup.memory.memsw.limit_in_bytes = 1G
 
 **/etc/default/lxc-net** - it may be necessary to add /etc/lxc/dnsasq.conf to the apparmor profile (/etc/apparmor.d/*dnsmasq*) with read privileges
+
     USE_LXC_BRIDGE="true"
     LXC_BRIDGE="lxcbr0"
     LXC_ADDR="192.168.1.1"
@@ -49,9 +55,11 @@ Attach existing container
     LXC_DOMAIN=""
 
 **/etc/lxc/dnsmasq.conf**
+
     dhcp-host=evan,192.168.1.102
 
 **iptables config**
+
     #!/bin/bash
     ## Evan Widloski - 2016-11-11
     # Diode iptables rules

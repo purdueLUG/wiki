@@ -25,7 +25,7 @@ Here are some tutorials that you might find useful.
 
 # PLUG Documentation
 
-- [Diode documentation](diode.md)
+- [Diode documentation](diode.html)
 
 # Linux 101
 
