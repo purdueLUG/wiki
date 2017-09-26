@@ -1,3 +1,4 @@
 docroot/
 **/*.pyc
 wiki/
+wiki
