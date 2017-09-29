@@ -57,6 +57,7 @@ Attach existing container
 **/etc/lxc/dnsmasq.conf**
 
     dhcp-host=evan,192.168.1.102
+    dhcp-option=6,128.46.154.76,8.8.4.4
 
 **iptables config**
 
