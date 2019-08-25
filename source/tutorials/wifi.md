@@ -6,6 +6,8 @@ tags: [wifi, tutorial]
 
 # Connect with Network Manager
 
+## GUI connection editor (nm-connection-editor)
+
 Click on the wireless icon in your tray area. Select "Connect to Hidden Wi-Fi Network" or choose PAL3.0 and enter these settings.
 
     Network Name: "PAL3.0"
@@ -37,6 +39,16 @@ Click on the wireless icon in your tray area. Select "Connect to Hidden Wi-Fi Ne
 ![image](PAL3example.png)
 
 Click save.
+
+## nmcli + nmtui
+
+nmtui does not currently support configuring WPA2-Enterprise connections. As such, we can configure the connection with nmcli and activate it with nmtui.
+
+```
+nmcli --ask connection add type wifi con-name "PAL3.0" ifname yourinterfacehere ssid "PAL3.0" -- wifi-sec.key-mgmt wpa-eap 802-1x.eap ttls 802-1x.phase2-auth mschapv2 802-1x.identity "Your Purdue Login"
+```
+
+Now you can open nmtui and activate the connection. You will be prompted for your password after attempting to connect.
 
 # Connect with netctl
 
