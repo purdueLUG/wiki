@@ -1,6 +1,6 @@
 [[
 title: Wifi Tutorial
-description: How to Connect to PAL3.0
+description: How to Connect to PAL3.0/Eduroam
 tags: [wifi, tutorial]
 ]]
 
@@ -37,6 +37,19 @@ Click on the wireless icon in your tray area. Select "Connect to Hidden Wi-Fi Ne
 ![image](PAL3example.png)
 
 Click save.
+
+# Connect with iwd
+
+These instructions will allow you to connect to Eduroam using iwd, the replacment for wpa_supplicant.
+
+Create the file /var/lib/iwd/Eduroam.8021x
+
+    [Security]
+    EAP-Method=PEAP
+    EAP-Identity=anonymous
+    EAP-PEAP-Phase2-Method=MSCHAPV2
+    EAP-PEAP-Phase2-Identity="Username"
+    EAP-PEAP-Phase2-Password="Password"
 
 # Connect with netctl
 
