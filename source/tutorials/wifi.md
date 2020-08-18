@@ -42,7 +42,7 @@ Click save.
 
 These instructions will allow you to connect to Eduroam using iwd, the replacment for wpa_supplicant.
 
-Create the file /var/lib/iwd/Eduroam.8021x
+Create the file /var/lib/iwd/eduroam.8021x
 
     [Security]
     EAP-Method=PEAP
@@ -50,6 +50,17 @@ Create the file /var/lib/iwd/Eduroam.8021x
     EAP-PEAP-Phase2-Method=MSCHAPV2
     EAP-PEAP-Phase2-Identity="Username"
     EAP-PEAP-Phase2-Password="Password"
+    
+    [Settings]
+    Autoconnect=true
+    
+Manually connect with
+
+    $ iwctl station <wifi station> connect eduroam
+    
+Get wifi stations with
+
+    $ iwctl station list
 
 # Connect with netctl
 
