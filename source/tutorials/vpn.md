@@ -17,6 +17,10 @@ RHEL/Fedora
 
     sudo yum install NetworkManager-openconnect
 
+Arch Linux
+    
+    sudo pacman -S install networkmanager-openconnect
+
 #Configure
 
 In Network Manager, go to
@@ -35,4 +39,4 @@ Click save, and then activate the VPN in Network Manager.
 
     VPN Connections > [your vpn]
 
-You will be prompted for a username and password on connecting.
+You will be prompted for a username and password on connecting. Use your Purdue Career Account username and BoilerKey password. 
